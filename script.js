@@ -153,7 +153,10 @@ async function init() {
   productsCache = await getProducts();
   renderCategories(productsCache);
   renderProducts();
+<<<<<<< HEAD
   initCommunityFeatures();
+=======
+>>>>>>> 4709963c7734e79b2a2f7f7a8bdcfe5ebe80fac7
   const requestedProduct = new URLSearchParams(location.search).get("order");
   if (requestedProduct) openOrder(requestedProduct);
   ["search-input", "category-filter", "sort-filter"].forEach(id => $(id).addEventListener(id === "search-input" ? "input" : "change", renderProducts));
