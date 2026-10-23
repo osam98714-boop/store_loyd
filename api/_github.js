@@ -6,7 +6,7 @@ function config() {
 }
 async function githubFile(path) {
   const c=config(), url=`${API}/repos/${c.owner}/${c.repo}/contents/${path}`;
-  const res=await fetch(url,{headers:{Authorization:`Bearer ${c.token}`,Accept:"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"}});
+  const controller=new AbortController(); const timer=setTimeout(()=>controller.abort(),7000); let res; try { res=await fetch(url,{signal:controller.signal,headers:{Authorization:`Bearer ${c.token}`,Accept:"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"}}); } finally { clearTimeout(timer); }
   if(res.status===404)return {data:null,sha:null};
   if(!res.ok)throw new Error(`تعذر قراءة ${path} من GitHub.`);
   const file=await res.json();

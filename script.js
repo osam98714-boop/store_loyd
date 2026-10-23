@@ -15,17 +15,53 @@ const safeText = value => String(value ?? "");
 function money(value) { const r = rates[currency]; return `${(Number(value || 0) * r.rate).toFixed(2)} ${r.symbol}`; }
 function escapeHtml(value) { return safeText(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
+const PRODUCT_CACHE_KEY = "lf_products_cache_v1";
+function readCachedProducts() {
+  try {
+    const data = JSON.parse(localStorage.getItem(PRODUCT_CACHE_KEY) || "[]");
+    return Array.isArray(data) ? data : [];
+  } catch (_) { return []; }
+}
+function saveCachedProducts(items) {
+  try { localStorage.setItem(PRODUCT_CACHE_KEY, JSON.stringify(items)); } catch (_) {}
+}
+async function fetchWithTimeout(url, ms = 7000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  try { return await fetch(url, { cache: "no-store", signal: controller.signal }); }
+  finally { clearTimeout(timer); }
+}
 async function getProducts() {
+  // Use a previously successful response immediately so repeat visits don't wait for GitHub.
+  const cached = readCachedProducts();
+  if (cached.length) return cached;
   try {
-    const res = await fetch("/api/products", { cache: "no-store" });
-    if (res.ok) { const data = await res.json(); if (Array.isArray(data)) return data; }
-  } catch (e) {}
+    const res = await fetchWithTimeout("/api/products", 7000);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data)) { saveCachedProducts(data); return data; }
+    }
+  } catch (e) { console.warn("تعذر تحميل المنتجات من API:", e); }
   try {
-    const res = await fetch("products.json?v=" + Date.now(), { cache: "no-store" });
-    if (res.ok) { const data = await res.json(); if (Array.isArray(data)) return data; }
-  } catch (e) {}
-  try { const local = JSON.parse(localStorage.getItem("lf_products") || "[]"); return Array.isArray(local) ? local : FALLBACK_PRODUCTS; }
-  catch (e) { return FALLBACK_PRODUCTS; }
+    const res = await fetchWithTimeout("products.json", 3000);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data)) { if (data.length) saveCachedProducts(data); return data; }
+    }
+  } catch (e) { console.warn("تعذر تحميل products.json:", e); }
+  return cached.length ? cached : FALLBACK_PRODUCTS;
+}
+async function refreshProductsInBackground() {
+  try {
+    const res = await fetchWithTimeout("/api/products", 7000);
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!Array.isArray(data)) return;
+    saveCachedProducts(data);
+    productsCache = data;
+    renderCategories(productsCache);
+    renderProducts();
+  } catch (e) { console.warn("تحديث المنتجات بالخلفية لم يكتمل:", e); }
 }
 
 function iconForCategory(cat) {
@@ -150,13 +186,12 @@ function initCommunityFeatures() {
 }
 
 async function init() {
-  productsCache = await getProducts();
+  // Render cached data immediately (or empty state), then refresh from the server without blocking the page.
+  productsCache = readCachedProducts();
   renderCategories(productsCache);
   renderProducts();
-<<<<<<< HEAD
+  refreshProductsInBackground();
   initCommunityFeatures();
-=======
->>>>>>> 4709963c7734e79b2a2f7f7a8bdcfe5ebe80fac7
   const requestedProduct = new URLSearchParams(location.search).get("order");
   if (requestedProduct) openOrder(requestedProduct);
   ["search-input", "category-filter", "sort-filter"].forEach(id => $(id).addEventListener(id === "search-input" ? "input" : "change", renderProducts));

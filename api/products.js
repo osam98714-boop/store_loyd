@@ -1,6 +1,6 @@
 const {githubFile,writeGithubFile,isAdmin}=require("./_github");
 module.exports=async function handler(req,res){
-  res.setHeader("Cache-Control","no-store");
+  res.setHeader("Cache-Control", req.method === "GET" ? "public, s-maxage=15, stale-while-revalidate=60" : "no-store");
   try{
     if(req.method==="GET"){
       const {data}=await githubFile("products.json");
