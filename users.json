@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "id": "lf_6534bc0e454fc07b1c8240d7",
+    "username": "Lloyd",
+    "email": "vikirfa98@gmail.com",
+    "phone": "",
+    "referralCode": "77E452EF3A",
+    "points": 0,
+    "pointsEarned": 0,
+    "pointsSpent": 0,
+    "passwordSalt": "7df568120b47adbf068dd8703e14546d",
+    "passwordHash": "2febf648d4d2a45b0ad60380cdab7fd9017514e10220c2666bf9ee61fb015f0afd24bffc36bfaf3a68e15666d30e6455b5d40674c1b682e03d5b031f75a14d22",
+    "createdAt": "2026-10-23T09:46:39.169Z"
+  }
+]
