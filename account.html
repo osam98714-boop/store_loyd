@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080d14">
+    <title>حسابي | LF BOTS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="account.css">
+    <script defer src="account.js"></script>
+</head>
+<body>
+    <header class="top">
+        <a href="index.html" class="brand">
+            <span class="mark">LF</span>
+            <span>LF <b>BOTS</b></span>
+        </a>
+        <a href="index.html" class="back">العودة للمتجر ←</a>
+    </header>
+
+    <main class="shell">
+        <section class="intro">
+            <span class="eyebrow">LF BOTS · CUSTOMER ACCOUNT</span>
+            <h1>حسابك، نقاطك، وطلباتك</h1>
+            <p>أنشئ حسابًا لمتابعة رصيد نقاطك ورمز دعوة الأصدقاء. تُحفظ الحسابات والنقاط في ملفات JSON داخل مستودع GitHub الخاص بك عبر واجهات API على Vercel.</p>
+        </section>
+
+        <div id="setupNotice" class="notice hidden"></div>
+        <div id="status" class="status" role="status"></div>
+
+        <!-- قسم تسجيل الدخول وإنشاء الحساب -->
+        <section id="authView" class="panel">
+            <div class="switch">
+                <button id="showLogin" class="selected" type="button">تسجيل الدخول</button>
+                <button id="showSignup" type="button">إنشاء حساب</button>
+            </div>
+
+            <form id="loginForm">
+                <h2>مرحبًا بعودتك</h2>
+                <label for="loginEmail">البريد الإلكتروني</label>
+                <input id="loginEmail" type="email" autocomplete="email" required placeholder="name@example.com">
+                <label for="loginPassword">كلمة المرور</label>
+                <input id="loginPassword" type="password" autocomplete="current-password" required minlength="8" placeholder="8 أحرف على الأقل">
+                <button class="primary" type="submit">دخول الحساب</button>
+            </form>
+
+            <form id="signupForm" class="hidden">
+                <h2>إنشاء حساب جديد</h2>
+                <label for="signupName">اسم المستخدم</label>
+                <input id="signupName" required minlength="3" maxlength="24" autocomplete="username" placeholder="اسم يظهر في ملفك">
+                <label for="signupPhone">رقم WhatsApp (اختياري)</label>
+                <input id="signupPhone" type="tel" maxlength="24" placeholder="مثال: +9665xxxxxxxx">
+                <label for="signupEmail">البريد الإلكتروني</label>
+                <input id="signupEmail" type="email" autocomplete="email" required placeholder="name@example.com">
+                <label for="signupPassword">كلمة المرور</label>
+                <input id="signupPassword" type="password" autocomplete="new-password" required minlength="8" placeholder="8 أحرف على الأقل">
+                <label for="referralInput">رمز دعوة صديق (اختياري)</label>
+                <input id="referralInput" maxlength="16" autocapitalize="characters" placeholder="أدخل الرمز إن وجد">
+                <button class="primary" type="submit">إنشاء الحساب</button>
+                <p class="small">احفظ كلمة المرور في مكان آمن؛ لا يمكن استعادتها من ملف البيانات.</p>
+            </form>
+        </section>
+
+        <!-- قسم الملف الشخصي وبيانات العميل -->
+        <section id="profileView" class="hidden">
+            <div class="profileHead panel">
+                <div class="avatar" id="avatar">LF</div>
+                <div class="profileText">
+                    <span class="eyebrow">ملف العميل</span>
+                    <h2 id="displayName">—</h2>
+                    <p id="displayEmail">—</p>
+                    <p id="displayPhone"></p>
+                </div>
+                <button id="logoutBtn" class="ghost" type="button">تسجيل الخروج</button>
+            </div>
+
+            <div class="stats">
+                <article class="stat">
+                    <span>رصيد النقاط</span>
+                    <strong id="points">0</strong>
+                    <small>1000 نقطة = 1 ريال داخل المتجر</small>
+                </article>
+                <article class="stat">
+                    <span>النقاط المكتسبة</span>
+                    <strong id="earned">0</strong>
+                </article>
+                <article class="stat">
+                    <span>النقاط المستخدمة</span>
+                    <strong id="spent">0</strong>
+                </article>
+            </div>
+
+            <div class="panel">
+                <h2>تعديل الملف الشخصي</h2>
+                <form id="profileForm">
+                    <label for="editName">اسم المستخدم</label>
+                    <input id="editName" minlength="3" maxlength="24" required>
+                    <label for="editPhone">رقم WhatsApp</label>
+                    <input id="editPhone" type="tel" maxlength="24" placeholder="+966...">
+                    <label for="editPassword">أكد هويتك بكلمة المرور الحالية</label>
+                    <input id="editPassword" type="password" required autocomplete="current-password" placeholder="كلمة المرور الحالية">
+                    <button class="primary" type="submit">حفظ التعديلات</button>
+                </form>
+            </div>
+
+            <div class="panel invite">
+                <h2>ادعُ صديقًا واكسب النقاط</h2>
+                <p>إذا سجّل صديق جديد باستخدام رمزك، يحصل كل منكما على 500 نقطة. تُمنح المكافأة مرة واحدة لكل حساب إحالة صالح.</p>
+                <div class="codeRow">
+                    <code id="referralCode">—</code>
+                    <button id="copyCode" class="ghost" type="button">نسخ الرمز</button>
+                </div>
+                <p class="small">النقاط للاستخدام داخل المتجر فقط، ولا يمكن سحبها نقدًا.</p>
+            </div>
+
+            <div class="panel">
+                <h2>سجل النقاط</h2>
+                <div id="history" class="history">
+                    <p class="small">لا توجد حركات بعد.</p>
+                </div>
+            </div>
+
+            <div class="panel redeem">
+                <h2>استخدام النقاط في المتجر</h2>
+                <p>يمكنك استخدام النقاط ضمن طلبات المتجر بعد اختيار المنتج. هذا الإصدار يعرض الرصيد والسجل فقط؛ لا تخصم النقاط هنا لأن الخصم يجب أن يرتبط بطلب حقيقي مؤكد.</p>
+                <a class="primary linkBtn" href="index.html#store">تصفح المنتجات</a>
+            </div>
+        </section>
+
+        <footer>LF BOTS · حساب العميل</footer>
+    </main>
+</body>
+</html>

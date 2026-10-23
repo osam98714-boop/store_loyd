@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <title>LF BOTS | المتجر الاحترافي لبيع البوتات والحلول البرمجية</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- شريط التنقل العلوي المحسّن -->
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#home">
+        <span class="brand-mark"><i class="fa-solid fa-code"></i></span>
+        <span>LF <b>BOTS</b></span>
+      </a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="فتح القائمة">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <nav id="main-nav">
+        <a class="active" href="#home">الرئيسية</a>
+        <a href="account.html"><i class="fa-solid fa-gem"></i> حسابي والنقاط</a>
+        <a href="#store">المتجر</a>
+        <a href="#categories">التصنيفات</a>
+        <a href="education.html">التعليم</a>
+        <a href="qr.html">QR Studio</a>
+        <a href="games.html">الألعاب</a>
+        <a href="suggestions.html">اقتراح</a>
+        <a href="complaints.html">شكوى</a>
+        <a href="#how">طريقة الطلب</a>
+        <a href="#faq">الأسئلة</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-soft" href="https://wa.me/962771111377" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i> المبيعات
+        </a>
+        <a class="btn btn-primary" href="admin.html">
+          <i class="fa-solid fa-shield-halved"></i> الإدارة
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- قسم البطل الرئيسي (Hero Section) -->
+    <section class="hero" id="home">
+      <div class="hero-glow"></div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fa-solid fa-bolt"></i> الجيل القادم من الحلول البرمجية</span>
+          <h1>ارتقِ ببوتاتك ومشاريعك إلى<br><span>مستوى استثنائي</span></h1>
+          <p>متجر LF BOTS المتخصص في بوتات WhatsApp ومشاريع Node.js وBaileys المتقدمة، بتجربة طلب فورية وتسليم يدوي موثوق.</p>
+          
+          <div class="hero-actions">
+            <a class="btn btn-primary btn-large" href="#store">
+              <i class="fa-solid fa-store"></i> تصفح معرض البوتات
+            </a>
+            <a class="btn btn-outline btn-large" href="https://wa.me/962771111377" target="_blank" rel="noopener">
+              <i class="fa-brands fa-whatsapp"></i> تواصل فوري
+            </a>
+          </div>
+
+          <div class="hero-points">
+            <span><i class="fa-solid fa-circle-check"></i> تسليم آمن ومضمون</span>
+            <span><i class="fa-solid fa-code"></i> أكواد نظيفة وقابلة للتطوير</span>
+            <span><i class="fa-solid fa-headset"></i> دعم فني مستمر</span>
+          </div>
+        </div>
+
+        <div class="hero-art">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="bot-visual">
+            <i class="fa-solid fa-robot"></i>
+            <span class="bot-spark spark-a"><i class="fa-brands fa-whatsapp"></i></span>
+            <span class="bot-spark spark-b"><i class="fa-solid fa-code"></i></span>
+            <span class="bot-spark spark-c"><i class="fa-solid fa-shield-halved"></i></span>
+          </div>
+          <div class="floating-code">&lt; LF_BOTS /&gt;</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- شريط الثقة والمميزات -->
+    <section class="trust-strip">
+      <div class="wrap trust-grid">
+        <div>
+          <i class="fa-solid fa-gem"></i>
+          <span><b>جودة احترافية</b><small>مشاريع مطورة بعناية فائقة</small></span>
+        </div>
+        <div>
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span><b>حلول متكاملة</b><small>لكافة أفكارك وأعمالك</small></span>
+        </div>
+        <div>
+          <i class="fa-solid fa-lock"></i>
+          <span><b>أمان وموثوقية</b><small>تنسيق دقيق وشفاف</small></span>
+        </div>
+        <div>
+          <i class="fa-brands fa-whatsapp"></i>
+          <span><b>تواصل مباشر</b><small>خدمة عملاء سريعة</small></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- قسم التصنيفات -->
+    <section class="section wrap" id="categories">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">استكشف الأقسام</span>
+          <h2>التصنيفات الرئيسية</h2>
+        </div>
+        <span class="heading-note">اختر مجالك المفضل</span>
+      </div>
+      <div class="category-grid" id="categories-container"></div>
+    </section>
+
+    <!-- قسم المتجر والمنتجات -->
+    <section class="section wrap" id="store">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">المنتجات الرقمية</span>
+          <h2>معرض البوتات والحلول</h2>
+          <p>اختر النظام المناسب لك وابدأ طلبك بضغطة زر واحدة.</p>
+        </div>
+        <span class="product-count" id="product-count">0 منتج</span>
+      </div>
+
+      <!-- لوحة الفلترة والبحث -->
+      <div class="filter-panel">
+        <label class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="search-input" placeholder="ابحث عن بوت، لغة برمجة، أو ميزة..." type="search">
+        </label>
+        <select id="category-filter">
+          <option value="all">كل التصنيفات</option>
+        </select>
+        <select id="sort-filter">
+          <option value="newest">الأحدث وصولاً</option>
+          <option value="price-low">السعر: الأقل أولًا</option>
+          <option value="price-high">السعر: الأعلى أولًا</option>
+        </select>
+      </div>
+
+      <div class="products-grid" id="products-container">
+        <div class="loading-state">
+          <i class="fa-solid fa-spinner fa-spin"></i> جارٍ تحميل المنتجات الذكية...
+        </div>
+      </div>
+    </section>
+
+    <!-- قسم طريقة الطلب -->
+    <section class="section wrap" id="how">
+      <div class="section-heading centered">
+        <div>
+          <span class="eyebrow">رحلة العميل</span>
+          <h2>كيف تطلب من LF BOTS؟</h2>
+        </div>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card">
+          <span class="step-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <span class="step-number">01</span>
+          <h3>اختر المنتج</h3>
+          <p>تصفح البوتات والحلول واقرأ التفاصيل والمتطلبات التقنية بدقة.</p>
+        </article>
+        <article class="step-card">
+          <span class="step-icon"><i class="fa-solid fa-file-signature"></i></span>
+          <span class="step-number">02</span>
+          <h3>أرسل طلبك</h3>
+          <p>أدخل بيانات التواصل الأساسية للحصول على رقم طلب فريد.</p>
+        </article>
+        <article class="step-card">
+          <span class="step-icon"><i class="fa-brands fa-whatsapp"></i></span>
+          <span class="step-number">03</span>
+          <h3>نسّق واستلم</h3>
+          <p>انتقل مباشرة إلى WhatsApp لإتمام الاتفاق والتسليم اليدوي الفوري.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- قسم الأسئلة الشائعة -->
+    <section class="section wrap" id="faq">
+      <div class="section-heading centered">
+        <div>
+          <span class="eyebrow">إجابات واضحة</span>
+          <h2>الأسئلة الشائعة</h2>
+        </div>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary>كيف يتم تسليم البوت أو المشروع؟ <i class="fa-solid fa-chevron-down"></i></summary>
+          <p>بعد اعتماد الطلب والاتفاق، يتم تزويدكم بالملفات البرمجية وشروحات التشغيل كاملة يدويًا عبر WhatsApp.</p>
+        </details>
+        <details>
+          <summary>هل عملية الدفع تتم آلياً داخل الموقع؟ <i class="fa-solid fa-chevron-down"></i></summary>
+          <p>لا، يقتصر الموقع على إنشاء الطلبات وتوليد تفاصيلها، ويتم الاتفاق على الدفع وتأكيده يدويًا مع فريق المبيعات لضمان الأمان.</p>
+        </details>
+        <details>
+          <summary>كيف يمكنني تتبع طلبي بعد إنشائه؟ <i class="fa-solid fa-chevron-down"></i></summary>
+          <p>يظهر لك رقم طلب فريد فور الإرسال؛ قم بإرساله مباشرة مع رسالة الواتساب لتتم خدمتك بسرعة قياسية.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <!-- الفوتر الرئيسي -->
+  <footer class="footer">
+    <div class="wrap footer-main">
+      <a class="brand" href="#home">
+        <span class="brand-mark"><i class="fa-solid fa-code"></i></span>
+        <span>LF <b>BOTS</b></span>
+      </a>
+      <p>الوجهة الاحترافية للحلول البرمجية وبوتات المراسلة.</p>
+      <div class="footer-contacts">
+        <a href="https://wa.me/962771111377" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> المبيعات: +962 7 7111 1377</a>
+        <a href="https://wa.me/966575495645" target="_blank" rel="noopener"><i class="fa-solid fa-headset"></i> الدعم الفني: +966 57 549 5645</a>
+      </div>
+    </div>
+    
+    <!-- روابط الأدوات المستقلة -->
+    <div class="wrap footer-tools">
+      <a href="account.html"><i class="fa-solid fa-user"></i> حسابي والنقاط</a>
+      <a href="qr.html"><i class="fa-solid fa-qrcode"></i> استوديو QR</a>
+      <a href="games.html"><i class="fa-solid fa-gamepad"></i> الألعاب</a>
+      <a href="education.html"><i class="fa-solid fa-graduation-cap"></i> التعليم</a>
+      <a href="suggestions.html"><i class="fa-regular fa-lightbulb"></i> اقتراح</a>
+      <a href="complaints.html"><i class="fa-regular fa-message"></i> الشكاوى</a>
+    </div>
+
+    <div class="wrap copyright">© 2026 LF BOTS — جميع الحقوق محفوظة. تم التطوير بعناية فائقة.</div>
+  </footer>
+
+  <!-- زر واتساب العائم -->
+  <div class="floating-wa">
+    <a href="https://wa.me/962771111377" target="_blank" rel="noopener" aria-label="تواصل عبر واتساب">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <!-- نافذة الطلب (Modal) -->
+  <div class="modal" id="order-modal" aria-hidden="true">
+    <div class="modal-content">
+      <button class="modal-close" type="button" data-close aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+      <span class="eyebrow">أنت على وشك الانتهاء</span>
+      <h2>إنشاء طلب جديد</h2>
+      <div class="order-product" id="order-product-preview"></div>
+      <form id="order-form">
+        <input type="hidden" id="order-product-id">
+        <div class="form-group">
+          <label for="order-client-name">اسم العميل أو اللقب</label>
+          <input id="order-client-name" maxlength="100" required placeholder="اكتب اسمك الكريم">
+        </div>
+        <div class="form-group">
+          <label for="order-client-phone">رقم WhatsApp</label>
+          <input id="order-client-phone" type="tel" maxlength="25" required placeholder="+9665xxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label for="order-client-notes">ملاحظات إضافية (اختياري)</label>
+          <textarea id="order-client-notes" rows="3" maxlength="1000" placeholder="أي تفاصيل أو استفسارات خاصة بطلبك"></textarea>
+        </div>
+        <p class="form-hint"><i class="fa-solid fa-circle-info"></i> الدفع والتسليم يتمان يدويًا وبشكل آمن بعد التواصل المباشر.</p>
+        <button class="btn btn-primary btn-large full" id="submit-order" type="submit">
+          تسجيل الطلب والمتابعة <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <p class="form-error" id="order-error" role="alert"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- نافذة النجاح (Success Modal) -->
+  <div class="modal" id="success-modal" aria-hidden="true">
+    <div class="modal-content success-content">
+      <span class="success-mark"><i class="fa-solid fa-check"></i></span>
+      <h2>تم إرسال طلبك بنجاح!</h2>
+      <p>رقم الطلب الفريد: <strong id="success-order-id"></strong></p>
+      <p class="muted">احتفظ بهذا الرقم وأكمل التنسيق الفوري مع فريق المبيعات عبر الواتساب.</p>
+      <a id="success-wa-link" class="btn btn-primary btn-large full" href="#" target="_blank" rel="noopener">
+        <i class="fa-brands fa-whatsapp"></i> إكمال الطلب عبر WhatsApp
+      </a>
+      <button class="btn btn-outline full" data-close type="button">إغلاق النافذة</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

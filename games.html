@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080d18">
+    <title>الألعاب | LF BOTS</title>
+    
+    <!-- الخطوط والأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="games.css">
+</head>
+<body>
+
+    <!-- الهيدر القائمة العلوية -->
+    <header class="page-head">
+        <a class="brand" href="index.html">
+            <span class="brand-mark"><i class="fa-solid fa-code"></i></span>
+            <span>LF <b>BOTS</b></span>
+        </a>
+        <nav>
+            <a href="index.html">المتجر</a>
+            <a href="education.html">التعليم</a>
+            <a href="qr.html">QR Studio</a>
+            <a href="games.html">الألعاب</a>
+            <a href="suggestions.html">اقتراح</a>
+            <a href="complaints.html">شكوى</a>
+        </nav>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="page-wrap">
+        <section class="page-hero">
+            <span class="eyebrow">LF BOTS · PLAY</span>
+            <h1>ركن الألعاب</h1>
+            <p>ألعاب خفيفة مستقلة عن المتجر. لا توجد نقاط أو جوائز مالية مرتبطة بها.</p>
+        </section>
+
+        <!-- لوحة اللعبة -->
+        <section class="panel game-panel">
+            <div class="game-top">
+                <span class="game-icon"><i class="fa-solid fa-dice"></i></span>
+                <div>
+                    <h2>تحدي تخمين الرقم</h2>
+                    <p class="muted">اختر رقمًا من 1 إلى 20 وحاول العثور على الرقم المخفي خلال 5 محاولات.</p>
+                </div>
+            </div>
+
+            <div class="game-controls">
+                <label class="field" for="guess">تخمينك 
+                    <input id="guess" type="number" min="1" max="20" inputmode="numeric" placeholder="رقم من 1 إلى 20">
+                </label>
+                <button class="btn" id="guess-btn">تحقق من الإجابة</button>
+                <button class="btn btn-soft" id="restart-btn">لعبة جديدة</button>
+            </div>
+
+            <p id="game-status" class="status" aria-live="polite">ابدأ التحدي! لديك 5 محاولات.</p>
+            <div class="attempts" id="attempts">المحاولات: 0 / 5</div>
+        </section>
+
+        <!-- البطاقات الإضافية -->
+        <section class="tiles game-extra">
+            <article class="tile">
+                <i class="fa-solid fa-puzzle-piece"></i>
+                <h3>ألعاب جديدة قريبًا</h3>
+                <p>يمكن إضافة ألعاب أخرى هنا لاحقًا دون خلطها مع صفحة المتجر.</p>
+            </article>
+            <article class="tile">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                <h3>مناسبة للجوال</h3>
+                <p>واجهة بسيطة تعمل باللمس على الجوال والكمبيوتر.</p>
+            </article>
+            <article class="tile">
+                <i class="fa-solid fa-face-smile"></i>
+                <h3>للترفيه فقط</h3>
+                <p>لا تحتاج إلى تسجيل دخول أو مشاركة بيانات شخصية.</p>
+            </article>
+        </section>
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="page-foot">
+        <a href="index.html">العودة إلى متجر LF BOTS</a>
+        <span>© 2026 LF BOTS</span>
+    </footer>
+
+    <script src="games.js"></script>
+</body>
+</html>

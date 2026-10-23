@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LF BOTS | لوحة الإدارة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="admin.style.css">
+</head>
+<body>
+
+    <!-- شاشة تسجيل الدخول -->
+    <section id="login-screen" class="login-shell">
+        <form id="admin-login-form" class="login-card">
+            <a class="brand" href="index.html">
+                <span class="brand-mark"><i class="fa-solid fa-code"></i></span>
+                <span>LF <b>BOTS</b></span>
+            </a>
+            <h1>مرحبًا بعودتك</h1>
+            <p>سجّل الدخول لإدارة متجرك.</p>
+            
+            <label>اسم المستخدم
+                <input id="admin-username" autocomplete="username" required>
+            </label>
+            <label>كلمة المرور
+                <input id="admin-password" type="password" autocomplete="current-password" required>
+            </label>
+            
+            <button class="btn primary full" type="submit">تسجيل الدخول <i class="fa-solid fa-arrow-left"></i></button>
+            <p class="error" id="login-error"></p>
+            <a class="back" href="index.html">العودة إلى المتجر</a>
+        </form>
+    </section>
+
+    <!-- لوحة التحكم الرئيسية -->
+    <div id="dashboard-screen" class="admin-layout hidden">
+        <aside class="sidebar">
+            <a class="brand" href="index.html">
+                <span class="brand-mark"><i class="fa-solid fa-code"></i></span>
+                <span>LF <b>BOTS</b></span>
+            </a>
+            <p class="side-label">مساحة الإدارة</p>
+            <button class="side-link active" data-tab="stats"><i class="fa-solid fa-chart-pie"></i> الإحصائيات</button>
+            <button class="side-link" data-tab="products"><i class="fa-solid fa-box"></i> المنتجات</button>
+            <button class="side-link" data-tab="orders"><i class="fa-solid fa-receipt"></i> الطلبات</button>
+            
+            <div class="side-bottom">
+                <a class="btn outline full" href="index.html"><i class="fa-solid fa-store"></i> عرض المتجر</a>
+                <button class="btn danger full" id="logout-btn">تسجيل الخروج</button>
+            </div>
+        </aside>
+
+        <main class="admin-main">
+            <div class="admin-top">
+                <div>
+                    <span class="eyebrow">لوحة التحكم</span>
+                    <h1 id="page-title">نظرة عامة</h1>
+                </div>
+                <button class="btn outline" id="refresh-btn"><i class="fa-solid fa-rotate"></i> تحديث البيانات</button>
+            </div>
+
+            <!-- صفحة الإحصائيات -->
+            <section class="tab-page active" id="tab-stats">
+                <div class="stats-grid">
+                    <article class="stat">
+                        <span>إجمالي المنتجات</span>
+                        <i class="fa-solid fa-box"></i>
+                        <strong id="stat-products">0</strong>
+                    </article>
+                    <article class="stat">
+                        <span>إجمالي الطلبات</span>
+                        <i class="fa-solid fa-receipt"></i>
+                        <strong id="stat-orders">0</strong>
+                    </article>
+                    <article class="stat">
+                        <span>طلبات بانتظار الدفع</span>
+                        <i class="fa-solid fa-clock"></i>
+                        <strong id="stat-pending">0</strong>
+                    </article>
+                    <article class="stat">
+                        <span>طلبات مدفوعة</span>
+                        <i class="fa-solid fa-circle-check"></i>
+                        <strong id="stat-paid">0</strong>
+                    </article>
+                </div>
+                <div class="panel">
+                    <h2>آخر الطلبات</h2>
+                    <div id="recent-orders" class="table-wrap"></div>
+                </div>
+            </section>
+
+            <!-- صفحة المنتجات -->
+            <section class="tab-page" id="tab-products">
+                <div class="panel">
+                    <h2>إضافة منتج</h2>
+                    <form id="add-product-form" class="product-form">
+                        <label>اسم البوت<input id="prod-name" required maxlength="120"></label>
+                        <label>السعر بالدولار<input id="prod-price" type="number" min="0" step=".01" required></label>
+                        <label>التصنيف<input id="prod-category" required></label>
+                        <label>لغة البرمجة<input id="prod-lang" required></label>
+                        <label>الشارة
+                            <select id="prod-tag">
+                                <option>جديد</option>
+                                <option>الأكثر طلباً</option>
+                                <option>مميز</option>
+                            </select>
+                        </label>
+                        <label>رابط الصورة<input id="prod-img" type="url" placeholder="https://..."></label>
+                        <label class="wide">الوصف<textarea id="prod-desc" rows="3" required></textarea></label>
+                        <button class="btn primary" id="save-prod-btn" type="submit"><i class="fa-solid fa-plus"></i> إضافة المنتج</button>
+                    </form>
+                </div>
+                <div class="panel">
+                    <h2>المنتجات الحالية</h2>
+                    <div id="admin-products-table" class="table-wrap"></div>
+                </div>
+            </section>
+
+            <!-- صفحة الطلبات -->
+            <section class="tab-page" id="tab-orders">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h2>جميع الطلبات</h2>
+                        <span class="muted">تُجلب من الخادم المشترك</span>
+                    </div>
+                    <div id="admin-orders-table" class="table-wrap"></div>
+                </div>
+            </section>
+
+            <div id="admin-message" role="status"></div>
+        </main>
+    </div>
+
+    <script src="admin.script.js"></script>
+</body>
+</html>

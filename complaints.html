@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080d18">
+    <title>صفحة الشكاوى | LF BOTS</title>
+    
+    <!-- الخطوط والأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="complaints.css">
+</head>
+<body>
+
+    <!-- الهيدر القائمة العلوية -->
+    <header class="page-head">
+        <a class="brand" href="index.html">
+            <span class="brand-mark"><i class="fa-solid fa-code"></i></span>
+            <span>LF <b>BOTS</b></span>
+        </a>
+        <nav>
+            <a href="index.html">المتجر</a>
+            <a href="education.html">التعليم</a>
+            <a href="qr.html">QR Studio</a>
+            <a href="games.html">الألعاب</a>
+            <a href="suggestions.html">اقتراح</a>
+            <a href="complaints.html">شكوى</a>
+        </nav>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="page-wrap">
+        <section class="page-hero">
+            <span class="eyebrow">LF BOTS · CUSTOMER VOICE</span>
+            <h1><i class="fa-solid fa-triangle-exclamation"></i> صفحة الشكاوى</h1>
+            <p>نعتذر إذا واجهت مشكلة. اشرح ما حدث وسنساعدك على توصيل التفاصيل لفريق المتجر.</p>
+        </section>
+
+        <!-- نموذج الشكاوى -->
+        <section class="panel feedback-panel">
+            <form id="feedback-form">
+                <div class="grid">
+                    <div class="field">
+                        <label for="sender-name">الاسم</label>
+                        <input id="sender-name" maxlength="100" required placeholder="اكتب اسمك">
+                    </div>
+                    <div class="field">
+                        <label for="sender-phone">رقم WhatsApp</label>
+                        <input id="sender-phone" type="tel" maxlength="25" required placeholder="+966...">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="feedback-title">عنوان الشكوى (اختياري)</label>
+                    <input id="feedback-title" maxlength="120" placeholder="عنوان مختصر">
+                </div>
+
+                <div class="field">
+                    <label for="feedback-message">تفاصيل الشكوى</label>
+                    <textarea id="feedback-message" rows="6" maxlength="3000" required placeholder="اكتب التفاصيل هنا..."></textarea>
+                </div>
+
+                <button class="btn" type="submit">
+                    <i class="fa-brands fa-whatsapp"></i> متابعة الإرسال عبر WhatsApp
+                </button>
+                <p class="muted" id="feedback-status" aria-live="polite">سيتم فتح WhatsApp برسالة جاهزة لإرسالها للمبيعات. لن يتم إرسالها تلقائيًا.</p>
+            </form>
+        </section>
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="page-foot">
+        <a href="index.html">العودة إلى متجر LF BOTS</a>
+        <span>© 2026 LF BOTS</span>
+    </footer>
+
+    <script src="complaints.js"></script>
+</body>
+</html>

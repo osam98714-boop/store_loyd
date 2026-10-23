@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#080d14">
+    <title>استوديو QR | LF BOTS</title>
+    
+    <!-- الخطوط والأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="qr.css">
+    
+    <!-- مكتبة توليد الـ QR -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+</head>
+<body>
+
+    <!-- الهيدر العلوي -->
+    <header class="nav">
+        <div>
+            <a class="back" href="index.html" aria-label="العودة للمتجر">←</a>
+            <span class="mark" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                    <rect width="32" height="32" rx="9" fill="#00c48c"/>
+                    <path fill="#04140f" d="M6 6h8v8H6zM18 6h8v8h-8zM6 18h8v8H6zM18 18h4v4h-4zM24 24h2v2h-2zM22 18h4v2h-4z"/>
+                </svg>
+            </span>
+            <a class="brand" href="index.html">LF <b>BOTS</b> <small>/ استوديو QR</small></a>
+            <nav>
+                <a href="index.html">المتجر</a>
+                <a href="education.html">التعليم</a>
+                <a href="games.html">الألعاب</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="wrap">
+        
+        <!-- القسم الأول: اختيار نوع المحتوى -->
+        <section class="box">
+            <h2>1. اختر نوع المحتوى</h2>
+            <div class="tabs" role="tablist" id="tabs"></div>
+            <div id="fields"></div>
+        </section>
+
+        <!-- معاينة الكود (يمين/أعلى حسب الشاشة) -->
+        <aside class="prev">
+            <div class="box out">
+                <div class="card">
+                    <canvas id="cv" width="1000" height="1000" aria-label="معاينة رمز QR"></canvas>
+                </div>
+                <div class="msg" id="msg" role="status" aria-live="polite"></div>
+                <div class="btns">
+                    <button class="btn" id="dl" type="button">
+                        <i class="fa-solid fa-download"></i> تحميل PNG
+                    </button>
+                    <button class="btn g" id="cp" type="button">
+                        <i class="fa-regular fa-copy"></i> نسخ الصورة
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- القسم الثاني: المظهر والتنسيق -->
+        <section class="box">
+            <h2>2. شكل الكود والتصميم</h2>
+            
+            <label>ستايلات جاهزة</label>
+            <div class="pre" id="pre"></div>
+
+            <label>شكل النقاط</label>
+            <div class="opts" data-k="dot">
+                <button type="button" data-v="sq">مربعة</button>
+                <button type="button" data-v="rd">مدوّرة</button>
+                <button type="button" data-v="dt">دوائر</button>
+            </div>
+
+            <label>شكل العيون</label>
+            <div class="opts" data-k="eye">
+                <button type="button" data-v="sq">مربعة</button>
+                <button type="button" data-v="rd">مدوّرة</button>
+                <button type="button" data-v="ci">دائرية</button>
+            </div>
+
+            <div class="two">
+                <div>
+                    <label for="c1">اللون الأول</label>
+                    <input type="color" id="c1" value="#0a1f44">
+                </div>
+                <div>
+                    <label for="c2">اللون الثاني (تدرج)</label>
+                    <input type="color" id="c2" value="#0a84ff">
+                </div>
+            </div>
+
+            <label class="chk">
+                <input type="checkbox" id="gr" checked> استخدم تدرج بين اللونين
+            </label>
+
+            <label for="bg">لون الخلفية</label>
+            <input type="color" id="bg" value="#ffffff" class="color-wide">
+
+            <label for="ec">مستوى التصحيح <span class="muted">(كلما زاد، يتحمل الكود خدوشًا وإضافات أكثر)</span></label>
+            <div class="seg" id="ecc">
+                <button type="button" data-v="L"><b>بسيط</b><small>7%</small></button>
+                <button type="button" data-v="M"><b>متوسط</b><small>15%</small></button>
+                <button type="button" data-v="Q"><b>قوي</b><small>25%</small></button>
+                <button type="button" data-v="H"><b>أقوى</b><small>30%</small></button>
+            </div>
+            <input type="hidden" id="ec" value="M">
+        </section>
+
+        <!-- القسم الثالث: الشعار والنصوص -->
+        <section class="box">
+            <h2>3. لمسات إضافية</h2>
+            
+            <label for="cap">نص تحت الكود (اختياري)</label>
+            <input type="text" id="cap" placeholder="مثال: امسح الكود للاتصال" maxlength="100">
+
+            <label for="logo">لوجو في المنتصف (اختياري)</label>
+            <label class="file" for="logo">
+                <span id="ln"><i class="fa-solid fa-image"></i> اختر صورة للشعار</span>
+                <input type="file" id="logo" accept="image/*" hidden>
+            </label>
+            <button type="button" class="file hide" id="lx"><i class="fa-solid fa-trash"></i> إزالة الشعار</button>
+
+            <label for="sz">حجم الصورة المفترض: <span id="szv">1000</span> بكسل</label>
+            <input type="range" id="sz" min="400" max="2000" step="100" value="1000">
+        </section>
+
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="foot">
+        <a href="index.html">العودة إلى متجر LF BOTS</a>
+        <span>© 2026 LF BOTS</span>
+    </footer>
+
+    <script src="qr.js"></script>
+</body>
+</html>

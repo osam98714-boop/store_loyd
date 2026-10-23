@@ -1,0 +1,262 @@
+/* الأساسيات وتنسيقات الصفحة */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #080d18;
+    color: #eef3ff;
+    font-family: 'Tajawal', sans-serif;
+    min-height: 100vh;
+    background-image: 
+        radial-gradient(ellipse at 15% 0%, rgba(55, 95, 210, .18), transparent 38%),
+        radial-gradient(ellipse at 95% 25%, rgba(0, 191, 166, .09), transparent 32%);
+}
+
+a {
+    color: inherit;
+}
+
+/* الهيدر العلوي */
+.page-head {
+    max-width: 1180px;
+    margin: auto;
+    padding: 20px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    border-bottom: 1px solid #1c2940;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+    font-weight: 900;
+    text-decoration: none;
+}
+
+.brand b {
+    color: #7da2ff;
+}
+
+.brand-mark {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #5d80ff, #35d4c2);
+    color: #081020;
+}
+
+.page-head nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.page-head nav a, 
+.page-foot a {
+    color: #aebbd2;
+    text-decoration: none;
+    padding: 9px 12px;
+    border-radius: 10px;
+}
+
+.page-head nav a:hover, 
+.page-foot a:hover {
+    background: #17243a;
+    color: white;
+}
+
+/* الحاوية والعنوان الرئيسية */
+.page-wrap {
+    max-width: 1040px;
+    margin: 35px auto;
+    padding: 0 20px 45px;
+}
+
+.page-hero {
+    text-align: center;
+    margin: 20px 0 28px;
+}
+
+.eyebrow {
+    color: #7da2ff;
+    font-weight: 800;
+}
+
+.page-hero h1 {
+    font-size: clamp(30px, 5vw, 48px);
+    margin: 10px 0;
+}
+
+.page-hero p {
+    color: #aebbd2;
+    line-height: 1.9;
+    max-width: 720px;
+    margin: auto;
+}
+
+/* اللوحة (Panel) والنماذج */
+.panel {
+    background: #101a2b;
+    border: 1px solid #263651;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 20px 50px #0002;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.field label {
+    font-weight: 700;
+}
+
+.field input, 
+.field textarea, 
+.field select {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #31415d;
+    border-radius: 12px;
+    background: #091221;
+    color: #fff;
+    font: inherit;
+    outline: none;
+}
+
+.field input:focus, 
+.field textarea:focus {
+    border-color: #7194ff;
+}
+
+/* الأزرار والنصوص */
+.btn {
+    border: 0;
+    border-radius: 12px;
+    padding: 13px 18px;
+    background: linear-gradient(135deg, #6a8cff, #4f6fe0);
+    color: white;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+}
+
+.btn-soft {
+    background: #1b2a43;
+}
+
+.muted {
+    color: #9fadc4;
+    line-height: 1.8;
+}
+
+.status {
+    margin-top: 14px;
+    color: #65e6c1;
+    line-height: 1.8;
+}
+
+/* خصائص نموذج الشكاوى */
+.feedback-panel {
+    max-width: 800px;
+    margin: auto;
+}
+
+.feedback-panel textarea {
+    resize: vertical;
+    min-height: 140px;
+}
+
+.feedback-panel .btn {
+    margin-top: 8px;
+}
+
+/* التنسيق للشبكة والمربعات الفرعية */
+.tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.tile {
+    background: #101a2b;
+    border: 1px solid #263651;
+    border-radius: 18px;
+    padding: 20px;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.tile:hover {
+    transform: translateY(-4px);
+    border-color: #6d8cff;
+}
+
+.tile i {
+    font-size: 26px;
+    color: #83a2ff;
+}
+
+.tile h3 {
+    margin: 14px 0 8px;
+}
+
+.tile p {
+    color: #aebbd2;
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* الفوتر */
+.page-foot {
+    border-top: 1px solid #1c2940;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    color: #8796af;
+}
+
+/* التصميم المتجاوب */
+@media(max-width: 760px) {
+    .page-head {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .page-head nav {
+        width: 100%;
+    }
+    .grid, .tiles {
+        grid-template-columns: 1fr;
+    }
+    .panel {
+        padding: 17px;
+    }
+    .page-wrap {
+        margin-top: 20px;
+    }
+}
