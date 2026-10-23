@@ -61,7 +61,8 @@ function renderProducts() {
   if (!items.length) { box.innerHTML = `<div class="empty-state"><i class="fa-solid fa-box-open"></i><p>لا توجد منتجات مطابقة لبحثك حاليًا.</p></div>`; return; }
   box.innerHTML = items.map(p => {
     const img = p.img ? `<img class="product-img" src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" loading="lazy" onerror="this.remove()">` : "";
-    return `<article class="product-card"><div class="product-image-wrap">${img}<i class="product-placeholder fa-solid fa-robot"></i><span class="product-tag">${escapeHtml(p.tag || "متوفر")}</span></div><div class="product-info"><h3 class="product-title">${escapeHtml(p.name)}</h3><p class="product-desc">${escapeHtml(p.desc || "حل برمجي متقدم من LF BOTS.")}</p><div class="product-meta"><span><i class="fa-solid fa-code"></i> ${escapeHtml(p.lang || "برمجة")}</span><span>${escapeHtml(p.category || "متنوع")}</span></div><div class="product-bottom"><span class="product-price">${money(p.price)} <small>السعر</small></span><button class="btn btn-primary" type="button" data-order="${escapeHtml(p.id)}"><i class="fa-solid fa-cart-shopping"></i> اطلب الآن</button></div></div></article>`;
+    const detailsUrl = `product.html?id=${encodeURIComponent(p.id)}`;
+    return `<article class="product-card"><a class="product-image-link" href="${detailsUrl}" aria-label="عرض تفاصيل ${escapeHtml(p.name)}"><div class="product-image-wrap">${img}<i class="product-placeholder fa-solid fa-robot"></i><span class="product-tag">${escapeHtml(p.tag || "متوفر")}</span></div></a><div class="product-info"><h3 class="product-title"><a href="${detailsUrl}">${escapeHtml(p.name)}</a></h3><p class="product-desc">${escapeHtml(p.desc || "حل برمجي متقدم من LF BOTS.")}</p><div class="product-meta"><span><i class="fa-solid fa-code"></i> ${escapeHtml(p.lang || "برمجة")}</span><span>${escapeHtml(p.category || "متنوع")}</span></div><div class="product-bottom"><span class="product-price">${money(p.price)} <small>السعر</small></span><div class="product-actions"><a class="btn btn-outline" href="${detailsUrl}">التفاصيل</a><button class="btn btn-primary" type="button" data-order="${escapeHtml(p.id)}"><i class="fa-solid fa-cart-shopping"></i> اطلب الآن</button></div></div></div></article>`;
   }).join("");
   box.querySelectorAll("[data-order]").forEach(btn => btn.addEventListener("click", () => openOrder(btn.dataset.order)));
 }
@@ -110,6 +111,8 @@ async function init() {
   productsCache = await getProducts();
   renderCategories(productsCache);
   renderProducts();
+  const requestedProduct = new URLSearchParams(location.search).get("order");
+  if (requestedProduct) openOrder(requestedProduct);
   ["search-input", "category-filter", "sort-filter"].forEach(id => $(id).addEventListener(id === "search-input" ? "input" : "change", renderProducts));
   $("order-form").addEventListener("submit", submitOrder);
   document.querySelectorAll("[data-close]").forEach(b => b.addEventListener("click", closeModals));
@@ -117,4 +120,22 @@ async function init() {
   $("menu-toggle").addEventListener("click", () => $("main-nav").classList.toggle("open"));
 }
 
-document.addEventListener("DOMContentLoaded", init);
+async function initProductDetails() {
+  const target = $("product-details");
+  if (!target) return;
+  const id = new URLSearchParams(location.search).get("id");
+  const products = await getProducts();
+  const product = products.find(p => String(p.id) === String(id));
+  if (!product) {
+    target.innerHTML = `<div class="details-empty"><i class="fa-solid fa-box-open"></i><h1>المنتج غير موجود</h1><p>قد يكون المنتج حُذف أو أن الرابط غير صحيح.</p><a class="btn btn-primary" href="index.html#store">العودة إلى المتجر</a></div>`;
+    return;
+  }
+  const image = product.img ? `<img class="details-image" src="${escapeHtml(product.img)}" alt="${escapeHtml(product.name)}" onerror="this.style.display='none'">` : `<div class="details-placeholder"><i class="fa-solid fa-robot"></i></div>`;
+  target.innerHTML = `<div class="details-breadcrumb"><a href="index.html">الرئيسية</a><i class="fa-solid fa-chevron-left"></i><a href="index.html#store">المتجر</a><i class="fa-solid fa-chevron-left"></i><span>${escapeHtml(product.name)}</span></div><article class="details-layout"><div class="details-visual">${image}<span class="product-tag">${escapeHtml(product.tag || "متوفر")}</span></div><div class="details-content"><span class="eyebrow"><i class="fa-solid fa-cube"></i> تفاصيل المنتج</span><h1>${escapeHtml(product.name)}</h1><div class="details-price">${money(product.price)} <small>السعر</small></div><div class="details-meta"><span><i class="fa-solid fa-code"></i> ${escapeHtml(product.lang || "برمجة")}</span><span><i class="fa-solid fa-layer-group"></i> ${escapeHtml(product.category || "متنوع")}</span></div><section class="details-description"><h2><i class="fa-solid fa-circle-info"></i> معلومات البوت كاملة</h2><div class="details-description-text">${escapeHtml(product.desc || "لا توجد تفاصيل إضافية لهذا المنتج حاليًا.")}</div></section><div class="details-actions"><a class="btn btn-primary btn-large" href="index.html?order=${encodeURIComponent(product.id)}#store"><i class="fa-solid fa-cart-shopping"></i> اطلب الآن</a><a class="btn btn-outline btn-large" href="index.html#store"><i class="fa-solid fa-arrow-right"></i> العودة للمتجر</a></div><p class="details-note"><i class="fa-solid fa-shield-halved"></i> يتم تأكيد الدفع والتسليم يدويًا عبر فريق LF BOTS.</p></div></article>`;
+  document.title = `${product.name} | LF BOTS`;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  if ($("product-details")) initProductDetails();
+  else init();
+});
