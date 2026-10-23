@@ -8,5 +8,15 @@
     "tag": "جديد",
     "img": "https://i.ibb.co/whWrzWfg/1792750082632.jpg",
     "desc": "بوت واتساب للتفاعل وإدارة المجموعات"
+  },
+  {
+    "id": "bot_1792750225019",
+    "name": "Bot Batman",
+    "price": 10,
+    "category": "Whatsapp bot",
+    "lang": "Node.js",
+    "tag": "مميز",
+    "img": "https://i.ibb.co/Jjg5VkzF/1792515480073.jpg",
+    "desc": "بوت واتساب لإدارة المجموعات والفعاليات"
   }
 ]
