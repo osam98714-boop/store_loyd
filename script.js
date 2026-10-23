@@ -103,7 +103,7 @@ function renderProducts() {
   box.innerHTML = items.map(p => {
     const img = p.img ? `<img class="product-img" src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" loading="lazy" onerror="this.remove()">` : "";
     const detailsUrl = `product.html?id=${encodeURIComponent(p.id)}`;
-    return `<article class="product-card"><a class="product-image-link" href="${detailsUrl}" aria-label="عرض تفاصيل ${escapeHtml(p.name)}"><div class="product-image-wrap">${img}<i class="product-placeholder fa-solid fa-robot"></i><span class="product-tag">${escapeHtml(p.tag || "متوفر")}</span></div></a><div class="product-info"><h3 class="product-title"><a href="${detailsUrl}">${escapeHtml(p.name)}</a></h3><p class="product-desc">${escapeHtml(p.desc || "حل برمجي متقدم من LF BOTS.")}</p><div class="product-meta"><span><i class="fa-solid fa-code"></i> ${escapeHtml(p.lang || "برمجة")}</span><span>${escapeHtml(p.category || "متنوع")}</span></div><div class="product-bottom"><span class="product-price">${money(p.price)} <small>السعر</small></span><div class="product-actions"><a class="btn btn-outline" href="${detailsUrl}">التفاصيل</a><button class="btn btn-primary" type="button" data-order="${escapeHtml(p.id)}"><i class="fa-solid fa-cart-shopping"></i> اطلب الآن</button></div></div></div></article>`;
+    return `<article class="product-card"><a class="product-image-link" href="${detailsUrl}" aria-label="عرض تفاصيل ${escapeHtml(p.name)}"><div class="product-image-wrap">${img}<i class="product-placeholder fa-solid fa-robot"></i><span class="product-tag">${escapeHtml(p.tag || "متوفر")}</span></div></a><div class="product-info"><h3 class="product-title"><a href="${detailsUrl}">${escapeHtml(p.name)}</a></h3><p class="product-desc">${escapeHtml(p.desc || "حل برمجي متقدم من LF BOTS.")}</p><div class="product-meta"><span><i class="fa-solid fa-code"></i> ${escapeHtml(p.lang || "برمجة")}</span><span>${escapeHtml(p.category || "متنوع")}</span></div><div class="product-bottom"><span class="product-price">${money(p.price)} <small>السعر</small></span><div class="product-actions"><a class="btn btn-outline" href="${detailsUrl}">التفاصيل</a><button class="favorite-toggle" type="button" data-favorite="${escapeHtml(p.id)}" aria-label="إضافة إلى المفضلة" title="إضافة إلى المفضلة"><i class="fa-regular fa-heart"></i></button><button class="btn btn-primary" type="button" data-order="${escapeHtml(p.id)}"><i class="fa-solid fa-cart-shopping"></i> اطلب الآن</button></div></div></div></article>`;
   }).join("");
   box.querySelectorAll("[data-order]").forEach(btn => btn.addEventListener("click", () => openOrder(btn.dataset.order)));
   box.querySelectorAll("[data-favorite]").forEach(btn => {
@@ -216,7 +216,29 @@ async function initProductDetails() {
   document.title = `${product.name} | LF BOTS`;
 }
 
+async function initFeaturePage() {
+  // صفحات الميزات لا تحتوي على عناصر الصفحة الرئيسية؛ لا تشغّل init() عليها.
+  // اقرأ الذاكرة المؤقتة أولًا ثم اجلب المنتجات عند الحاجة.
+  productsCache = readCachedProducts();
+  if (!productsCache.length) {
+    productsCache = await getProducts();
+    if (Array.isArray(productsCache) && productsCache.length) saveCachedProducts(productsCache);
+  }
+  initCommunityFeatures();
+  // تحديث البيانات في الخلفية دون تعطيل وظائف الصفحة الحالية.
+  refreshProductsInBackground().then(() => {
+    const select = $("review-product");
+    if (select) {
+      const selected = select.value;
+      select.innerHTML = productsCache.map(p => `<option value="${escapeHtml(p.id)}">${escapeHtml(p.name)}</option>`).join("");
+      if (productsCache.some(p => String(p.id) === selected)) select.value = selected;
+    }
+    renderFavorites(); renderReviews(); renderAchievements();
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   if ($("product-details")) initProductDetails();
-  else init();
+  else if ($("products-container")) init();
+  else initFeaturePage();
 });

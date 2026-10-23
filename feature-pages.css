@@ -16,3 +16,8 @@
 .tool-favorites{color:#fb7185}.tool-orders{color:#a3e635}.tool-assistant{color:#c4b5fd}.tool-achievements{color:#fbbf24}.tool-reviews{color:#f9a8d4}.tool-updates{color:#67e8f9}
 @media(max-width:900px){.lf-tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.lf-tools-grid{grid-template-columns:1fr;gap:12px}.lf-tool-button{min-height:unset;padding:16px}.lf-tool-copy small{min-height:unset}.lf-tool-copy em{margin-top:3px}}
+
+/* زر المفضلة داخل بطاقة المنتج */
+.favorite-toggle{display:inline-grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border:1px solid rgba(148,163,184,.28);border-radius:12px;background:rgba(15,23,42,.8);color:#fda4af;cursor:pointer;transition:transform .18s,border-color .18s,background .18s;font-size:1.05rem}
+.favorite-toggle:hover{transform:translateY(-2px);border-color:#fb7185}
+.favorite-toggle.is-favorite{background:rgba(251,113,133,.13);border-color:rgba(251,113,133,.6);color:#fb7185}
