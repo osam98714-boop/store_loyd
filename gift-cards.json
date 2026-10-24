@@ -5,5 +5,18 @@
     "value": "$25 USD",
     "description": "تُطلب يدويًا عبر واتساب وتُؤكد تفاصيلها قبل الدفع.",
     "active": true
+  },
+  {
+    "title": "هدية للمستجد",
+    "name": "هدية للمستجد",
+    "body": "",
+    "description": "",
+    "bio": "",
+    "value": "2",
+    "price": "2",
+    "url": "",
+    "active": true,
+    "id": "giftcards_1792843908739",
+    "createdAt": "2026-10-24T12:11:48.739Z"
   }
 ]
