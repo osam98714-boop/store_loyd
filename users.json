@@ -11,5 +11,18 @@
     "passwordSalt": "960649af87a5d4f15986a0f532a5bf0b",
     "passwordHash": "7d61b6a9dc70dc0e73e99bbda303f88900eaa2c2b66cd09f8488bde08459b483e88f4c27bd45dcbc570211fd8b7ddbf6eb8480cf54227067d2573ecfa3b3f45d",
     "createdAt": "2026-10-23T18:42:00.040Z"
+  },
+  {
+    "id": "lf_90dba1f10998b1a787d83e13",
+    "username": "ياسر",
+    "email": "vikirfa98@gmail.com",
+    "phone": "",
+    "referralCode": "1D1018D737",
+    "points": 0,
+    "pointsEarned": 0,
+    "pointsSpent": 0,
+    "passwordSalt": "fd7b00b4315afdee856152c82f1acf1a",
+    "passwordHash": "5f19f396c2228753dc3ac34c2e4b1b29726645cd552a68eaf25d3542a5ecd4b0c4e54a852250891bdb12c75c4a5666261d5967a2bc5322e6409c580b4f13f0da",
+    "createdAt": "2026-10-24T12:09:44.988Z"
   }
 ]
