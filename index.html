@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="lf-new-features.css">
   <link rel="stylesheet" href="feature-pages.css">
 </head>
 <body>
@@ -155,6 +156,13 @@
       </div>
     </section>
 
+    <!-- العروض وكوبونات الخصم -->
+    <section class="section wrap lf-offers-section" id="offers">
+      <div class="section-heading"><div><span class="eyebrow">وفر على طلبك</span><h2>العروض وكوبونات الخصم</h2><p>استخدم رمز العرض عند إنشاء الطلب. يتم التحقق منه من الخادم.</p></div></div>
+      <div id="offers-list" class="lf-offers-grid"><p class="muted">جارٍ تحميل العروض...</p></div>
+      <div class="offers-footer"><a class="btn btn-outline" href="voting.html"><i class="fa-solid fa-check-to-slot"></i> صوّت على البوت القادم</a></div>
+    </section>
+
     <!-- أدوات LF BOTS كأزرار واضحة -->
     <section class="section wrap lf-tools-section" id="lf-community">
       <div class="section-heading">
@@ -165,6 +173,7 @@
         </div>
       </div>
       <div class="feature-links-grid lf-tools-grid">
+        <a class="feature-link-card lf-tool-button" href="voting.html"><span class="feature-link-icon tool-updates"><i class="fa-solid fa-check-to-slot"></i></span><span class="lf-tool-copy"><b>التصويت على البوتات القادمة</b><small>ساعدنا نختار البوت التالي في LF BOTS.</small><em>شارك في التصويت <i class="fa-solid fa-arrow-left"></i></em></span></a>
         <a class="feature-link-card lf-tool-button" href="favorites.html">
           <span class="feature-link-icon tool-favorites"><i class="fa-solid fa-heart"></i></span>
           <span class="lf-tool-copy"><b>المفضلة</b><small>اجمع البوتات التي تريد الرجوع إليها.</small><em>فتح الصفحة <i class="fa-solid fa-arrow-left"></i></em></span>
@@ -189,6 +198,14 @@
           <span class="feature-link-icon tool-updates"><i class="fa-solid fa-code-branch"></i></span>
           <span class="lf-tool-copy"><b>سجل التحديثات</b><small>اكتشف الجديد في LF BOTS.</small><em>عرض التحديثات <i class="fa-solid fa-arrow-left"></i></em></span>
         </a>
+        <a class="feature-link-card lf-tool-button" href="coupons.html"><span class="feature-link-icon tool-updates"><i class="fa-solid fa-ticket"></i></span><span class="lf-tool-copy"><b>العروض والكوبونات</b><small>اكتشف رموز الخصم النشطة.</small><em>عرض العروض <i class="fa-solid fa-arrow-left"></i></em></span></a>
+        <a class="feature-link-card lf-tool-button" href="developers.html"><span class="feature-link-icon tool-favorites"><i class="fa-solid fa-code"></i></span><span class="lf-tool-copy"><b>المطورون</b><small>تعرّف على المطورين والمساهمين.</small><em>استكشف <i class="fa-solid fa-arrow-left"></i></em></span></a>
+        <a class="feature-link-card lf-tool-button" href="gift-cards.html"><span class="feature-link-icon tool-orders"><i class="fa-solid fa-gift"></i></span><span class="lf-tool-copy"><b>بطاقات الهدايا</b><small>اطلب بطاقة هدية رقمية يدويًا.</small><em>عرض البطاقات <i class="fa-solid fa-arrow-left"></i></em></span></a>
+        <a class="feature-link-card lf-tool-button" href="memberships.html"><span class="feature-link-icon tool-achievements"><i class="fa-solid fa-crown"></i></span><span class="lf-tool-copy"><b>مستويات العضوية</b><small>تابع مستواك حسب نقاط الحساب.</small><em>عرض المستويات <i class="fa-solid fa-arrow-left"></i></em></span></a>
+        <a class="feature-link-card lf-tool-button" href="notifications.html"><span class="feature-link-icon tool-updates"><i class="fa-solid fa-bell"></i></span><span class="lf-tool-copy"><b>التنبيهات</b><small>اطلع على الإعلانات العامة.</small><em>عرض التنبيهات <i class="fa-solid fa-arrow-left"></i></em></span></a>
+        <a class="feature-link-card lf-tool-button" href="news.html"><span class="feature-link-icon tool-updates"><i class="fa-solid fa-newspaper"></i></span><span class="lf-tool-copy"><b>الأخبار والتحديثات</b><small>آخر أخبار وإصدارات المتجر.</small><em>اقرأ الأخبار <i class="fa-solid fa-arrow-left"></i></em></span></a>
+        <a class="feature-link-card lf-tool-button" href="analytics.html"><span class="feature-link-icon tool-assistant"><i class="fa-solid fa-chart-line"></i></span><span class="lf-tool-copy"><b>إحصائيات المتجر</b><small>لوحة إحصائيات مخصصة للمدير.</small><em>فتح الإحصائيات <i class="fa-solid fa-arrow-left"></i></em></span></a>
+        <a class="feature-link-card lf-tool-button" href="content-admin.html"><span class="feature-link-icon tool-orders"><i class="fa-solid fa-sliders"></i></span><span class="lf-tool-copy"><b>إدارة محتوى الصفحات</b><small>أضف الأخبار والتنبيهات والمطورين والهدايا.</small><em>إدارة المحتوى <i class="fa-solid fa-arrow-left"></i></em></span></a>
       </div>
     </section>
 
@@ -296,6 +313,11 @@
         <div class="form-group">
           <label for="order-client-phone">رقم WhatsApp</label>
           <input id="order-client-phone" type="tel" maxlength="25" required placeholder="+9665xxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label for="order-coupon-code">كود الخصم (اختياري)</label>
+          <input id="order-coupon-code" maxlength="24" placeholder="مثال: WELCOME10" autocomplete="off">
+          <small class="form-hint">سيتم التحقق من الكود عند تسجيل الطلب.</small>
         </div>
         <div class="form-group">
           <label for="order-client-notes">ملاحظات إضافية (اختياري)</label>

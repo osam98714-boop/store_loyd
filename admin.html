@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="admin.style.css">
+    <link rel="stylesheet" href="lf-new-features.css">
 </head>
 <body>
 
@@ -44,6 +45,7 @@
             <button class="side-link active" data-tab="stats"><i class="fa-solid fa-chart-pie"></i> الإحصائيات</button>
             <button class="side-link" data-tab="products"><i class="fa-solid fa-box"></i> المنتجات</button>
             <button class="side-link" data-tab="orders"><i class="fa-solid fa-receipt"></i> الطلبات</button>
+            <button class="side-link" data-tab="coupons"><i class="fa-solid fa-ticket"></i> كوبونات الخصم</button>
             
             <div class="side-bottom">
                 <a class="btn outline full" href="index.html"><i class="fa-solid fa-store"></i> عرض المتجر</a>
@@ -128,6 +130,20 @@
                 </div>
             </section>
 
+            <section class="tab-page" id="tab-coupons">
+                <div class="panel">
+                    <h2>إنشاء كوبون خصم</h2>
+                    <form id="add-coupon-form" class="product-form">
+                        <label>رمز الكوبون<input id="coupon-code" required minlength="3" maxlength="24" placeholder="WELCOME10"></label>
+                        <label>نوع الخصم<select id="coupon-type"><option value="percent">نسبة مئوية %</option><option value="fixed">مبلغ بالدولار</option></select></label>
+                        <label>قيمة الخصم<input id="coupon-value" type="number" min="0.01" step="0.01" required></label>
+                        <label>تاريخ الانتهاء (اختياري)<input id="coupon-expiry" type="date"></label>
+                        <label>الحد الأقصى للاستخدام (0 = بلا حد)<input id="coupon-max-uses" type="number" min="0" step="1" value="0"></label>
+                        <button class="btn primary" type="submit"><i class="fa-solid fa-plus"></i> إنشاء الكوبون</button>
+                    </form>
+                </div>
+                <div class="panel"><h2>الكوبونات الحالية</h2><div id="admin-coupons-table" class="table-wrap"></div></div>
+            </section>
             <div id="admin-message" role="status"></div>
         </main>
     </div>

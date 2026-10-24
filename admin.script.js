@@ -1,5 +1,5 @@
 let adminPassword = "";
-let products = [], orders = [];
+let products = [], orders = [], coupons = [];
 
 const $ = id => document.getElementById(id);
 
@@ -24,10 +24,12 @@ function message(text) {
 
 async function loadAll() {
     try {
-        const [p, o] = await Promise.all([api("/api/products"), api("/api/orders")]);
+        const [p, o, c] = await Promise.all([api("/api/products"), api("/api/orders"), api("/api/coupons")]);
         products = Array.isArray(p.products) ? p.products : (Array.isArray(p) ? p : []);
         orders = Array.isArray(o.orders) ? o.orders : [];
-        render();
+        coupons = Array.isArray(c.coupons) ? c.coupons : [];
+        render(); renderCoupons();
+        try { const st = await api("/api/stats"); let extra=document.getElementById('extra-stats'); if(!extra){extra=document.createElement('div');extra.id='extra-stats';extra.className='stats-grid';document.querySelector('#tab-stats .stats-grid').after(extra);} extra.innerHTML=`<article class="stat"><span>العملاء</span><strong>${Number(st.customers)||0}</strong></article><article class="stat"><span>أصوات البوتات القادمة</span><strong>${Number(st.votes)||0}</strong></article><article class="stat"><span>الكوبونات</span><strong>${Number(st.coupons)||0}</strong></article>`; } catch {}
     } catch (e) {
         message(e.message + " — تأكد من إعداد متغيرات البيئة على Vercel.");
     }
@@ -42,6 +44,14 @@ function render() {
     renderProducts();
     renderOrders("recent-orders", orders.slice(-5).reverse(), false);
     renderOrders("admin-orders-table", orders.slice().reverse(), true);
+} 
+
+function renderCoupons(){
+ const box=$("admin-coupons-table"); if(!box)return;
+ if(!coupons.length){box.innerHTML='<div class="empty">لا توجد كوبونات بعد.</div>';return;}
+ box.innerHTML=`<table><thead><tr><th>الرمز</th><th>الخصم</th><th>الاستخدام</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>${coupons.map(c=>`<tr><td>${esc(c.code)}</td><td>${c.type==='fixed'?'$'+Number(c.value):Number(c.value)+'%'}</td><td>${Number(c.uses)||0}${c.maxUses?' / '+Number(c.maxUses):' / بلا حد'}</td><td>${c.active===false?'متوقف':'نشط'}</td><td><button class="table-action" data-toggle-coupon="${esc(c.code)}" data-active="${c.active===false?'1':'0'}">${c.active===false?'تفعيل':'إيقاف'}</button><button class="table-action red" data-delete-coupon="${esc(c.code)}">حذف</button></td></tr>`).join('')}</tbody></table>`;
+ box.querySelectorAll('[data-toggle-coupon]').forEach(b=>b.onclick=async()=>{try{await api('/api/coupons',{method:'PATCH',body:JSON.stringify({code:b.dataset.toggleCoupon,active:b.dataset.active==='1'})});message('تم تحديث حالة الكوبون.');await loadAll();}catch(e){message(e.message);}});
+ box.querySelectorAll('[data-delete-coupon]').forEach(b=>b.onclick=async()=>{if(!confirm('حذف الكوبون نهائيًا؟'))return;try{await api('/api/coupons',{method:'DELETE',body:JSON.stringify({code:b.dataset.deleteCoupon})});message('تم حذف الكوبون.');await loadAll();}catch(e){message(e.message);}});
 }
 
 function renderProducts() {
@@ -61,7 +71,7 @@ function renderOrders(target, list, actions) {
         box.innerHTML = '<div class="empty">لا توجد طلبات مسجلة.</div>';
         return;
     }
-    box.innerHTML = `<table><thead><tr><th>رقم الطلب</th><th>العميل</th><th>WhatsApp</th><th>المنتج</th><th>السعر</th><th>حالة الدفع</th>${actions ? '<th>إجراء</th>' : ''}</tr></thead><tbody>${list.map(o => `<tr><td>${esc(o.id)}</td><td>${esc(o.clientName)}</td><td>${esc(o.clientPhone)}</td><td>${esc(o.productName)}</td><td>${esc(o.productPrice)}</td><td><span class="status ${o.paymentStatus === "تم التأكيد" ? "" : "pending"}">${esc(o.paymentStatus || "غير مدفوع")}</span></td>${actions ? `<td><button class="table-action" data-pay="${esc(o.id)}">تأكيد الدفع</button><button class="table-action red" data-delete-order="${esc(o.id)}">حذف</button></td>` : ""}</tr>`).join("")}</tbody></table>`;
+    box.innerHTML = `<table><thead><tr><th>رقم الطلب</th><th>العميل</th><th>WhatsApp</th><th>المنتج</th><th>السعر</th><th>حالة الدفع</th>${actions ? '<th>إجراء</th>' : ''}</tr></thead><tbody>${list.map(o => `<tr><td>${esc(o.id)}</td><td>${esc(o.clientName)}</td><td>${esc(o.clientPhone)}</td><td>${esc(o.productName)}${o.couponCode?`<small style="display:block;opacity:.75">كوبون: ${esc(o.couponCode)} · خصم $${Number(o.discountValue||0).toFixed(2)}</small>`:''}</td><td>${o.finalPrice!==undefined?`$${Number(o.finalPrice).toFixed(2)} بعد الخصم`:esc(o.productPrice)}</td><td><span class="status ${o.paymentStatus === "تم التأكيد" ? "" : "pending"}">${esc(o.paymentStatus || "غير مدفوع")}</span></td>${actions ? `<td><button class="table-action" data-pay="${esc(o.id)}">تأكيد الدفع</button><button class="table-action red" data-delete-order="${esc(o.id)}">حذف</button></td>` : ""}</tr>`).join("")}</tbody></table>`;
     
     box.querySelectorAll("[data-pay]").forEach(b => b.onclick = () => updateOrder(b.dataset.pay, "confirm"));
     box.querySelectorAll("[data-delete-order]").forEach(b => b.onclick = () => updateOrder(b.dataset.deleteOrder, "delete"));
@@ -70,7 +80,7 @@ function renderOrders(target, list, actions) {
 function showTab(tab) {
     document.querySelectorAll(".side-link").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
     document.querySelectorAll(".tab-page").forEach(p => p.classList.toggle("active", p.id === "tab-" + tab));
-    $("page-title").textContent = ({ stats: "نظرة عامة", products: "إدارة المنتجات", orders: "إدارة الطلبات" })[tab] || "لوحة الإدارة";
+    $("page-title").textContent = ({ stats: "نظرة عامة", products: "إدارة المنتجات", orders: "إدارة الطلبات", coupons: "كوبونات الخصم" })[tab] || "لوحة الإدارة";
 }
 
 async function deleteProduct(id) {
@@ -125,6 +135,12 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     
     $("refresh-btn").onclick = loadAll;
+
+    $("add-coupon-form")?.addEventListener("submit", async e => {
+        e.preventDefault();
+        const coupon={code:$("coupon-code").value.trim().toUpperCase(),type:$("coupon-type").value,value:Number($("coupon-value").value),active:true,maxUses:Number($("coupon-max-uses").value||0),uses:0,expiresAt:$("coupon-expiry").value?new Date($("coupon-expiry").value+'T23:59:59').toISOString():null};
+        try{await api('/api/coupons',{method:'POST',body:JSON.stringify(coupon)});e.target.reset();$("coupon-max-uses").value='0';message('تم إنشاء الكوبون وحفظه في GitHub.');await loadAll();}catch(err){message(err.message);}
+    });
 
     $("add-product-form").addEventListener("submit", async e => {
         e.preventDefault();

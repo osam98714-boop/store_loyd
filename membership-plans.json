@@ -1,0 +1,20 @@
+[
+  {
+    "id": "bronze",
+    "title": "العضوية البرونزية",
+    "description": "مستوى تقديري بناءً على النقاط.",
+    "active": true
+  },
+  {
+    "id": "silver",
+    "title": "العضوية الفضية",
+    "description": "مستوى تقديري بناءً على النقاط.",
+    "active": true
+  },
+  {
+    "id": "gold",
+    "title": "العضوية الذهبية",
+    "description": "مستوى تقديري بناءً على النقاط.",
+    "active": true
+  }
+]

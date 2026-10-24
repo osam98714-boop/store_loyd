@@ -17,12 +17,28 @@ module.exports=async function handler(req,res){
       const products=Array.isArray(prodResult.data)?prodResult.data:[];
       const product=products.find(p=>String(p.id)===String(body.productId));
       if(!product)return res.status(404).json({error:"المنتج غير موجود أو لم يعد متاحًا."});
+      const basePrice=Number(product.price||0);
+      if(!Number.isFinite(basePrice)||basePrice<0)return res.status(400).json({error:"سعر المنتج غير صالح."});
+      let discount=0,couponCode="";
+      const suppliedCode=String(body.couponCode||"").trim().toUpperCase();
+      if(suppliedCode){
+        const cr=await githubFile("coupons.json"),coupons=Array.isArray(cr.data)?cr.data:[];
+        const coupon=coupons.find(c=>String(c.code||"").toUpperCase()===suppliedCode);
+        if(!coupon||coupon.active===false||(coupon.expiresAt&&Date.parse(coupon.expiresAt)<=Date.now())||(coupon.maxUses&&Number(coupon.uses||0)>=Number(coupon.maxUses)))return res.status(400).json({error:"كود الخصم غير صالح أو منتهي أو استُنفدت استخداماته."});
+        const value=Number(coupon.value||0);
+        if(!Number.isFinite(value)||value<=0||(coupon.type==="percent"&&value>100))return res.status(400).json({error:"إعدادات كود الخصم غير صحيحة."});
+        discount=coupon.type==="fixed"?Math.min(basePrice,value):basePrice*Math.min(value,100)/100;
+        discount=Number(discount.toFixed(2));couponCode=suppliedCode;
+        coupon.uses=Number(coupon.uses||0)+1;
+        await writeGithubFile("coupons.json",coupons,"LF BOTS: redeem coupon "+suppliedCode,cr.sha);
+      }
+      const finalPrice=Number(Math.max(0,basePrice-discount).toFixed(2));
       const {data,sha}=await githubFile("orders.json");
       const orders=Array.isArray(data)?data:[];
-      const order={id:id(),productId:String(product.id),productName:String(product.name),productPrice:`$${Number(product.price||0).toFixed(2)} USD`,clientName,clientPhone,clientNotes:clientNotes||"لا يوجد",date:new Date().toISOString(),status:"جديد",paymentStatus:"غير مدفوع"};
+      const order={id:id(),productId:String(product.id),productName:String(product.name),productPrice:`$${basePrice.toFixed(2)} USD`,priceValue:basePrice,discountValue:discount,finalPrice, couponCode,clientName,clientPhone,clientNotes:clientNotes||"لا يوجد",date:new Date().toISOString(),status:"جديد",paymentStatus:"غير مدفوع"};
       orders.push(order);
       await writeGithubFile("orders.json",orders,"LF BOTS: new order "+order.id,sha);
-      return res.status(201).json({ok:true,orderId:order.id});
+      return res.status(201).json({ok:true,orderId:order.id,basePrice,discount,finalPrice,couponCode});
     }
     if(req.method==="PATCH"){
       if(!isAdmin(req))return res.status(401).json({error:"يلزم تسجيل دخول المدير."});

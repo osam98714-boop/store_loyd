@@ -136,7 +136,8 @@ async function submitOrder(e) {
   const clientPhone = $("order-client-phone").value.trim();
   const clientNotes = $("order-client-notes").value.trim();
   if (!clientName || !clientPhone) { error.textContent = "يرجى إدخال الاسم ورقم WhatsApp بدقة."; return; }
-  const order = { productId: String(currentProduct.id), clientName, clientPhone, clientNotes };
+  const couponCode = ($("order-coupon-code")?.value || "").trim().toUpperCase();
+  const order = { productId: String(currentProduct.id), clientName, clientPhone, clientNotes, couponCode };
   btn.disabled = true; btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جارٍ تسجيل الطلب...`;
   try {
     const response = await fetch("/api/orders", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(order) });
@@ -144,7 +145,8 @@ async function submitOrder(e) {
     if (!response.ok || !data.orderId) throw new Error(data.error || "تعذر تسجيل الطلب. يرجى المحاولة لاحقًا.");
     closeModals();
     $("success-order-id").textContent = data.orderId;
-    const msg = `السلام عليكم، أرغب في إكمال طلب من متجر LF BOTS.\nرقم الطلب: ${data.orderId}\nاسم البوت: ${currentProduct.name}\nالسعر: ${money(currentProduct.price)}\nاسم العميل: ${clientName}\nرقم التواصل: ${clientPhone}\nملاحظات: ${clientNotes || "لا يوجد"}\nأرجو توضيح خطوات الدفع والتسليم اليدوي.`;
+    const finalPrice = Number(data.finalPrice ?? currentProduct.price);
+    const msg = `السلام عليكم، أرغب في إكمال طلب من متجر LF BOTS.\nرقم الطلب: ${data.orderId}\nاسم البوت: ${currentProduct.name}\nالسعر الأساسي: ${money(currentProduct.price)}\nكود الخصم: ${data.couponCode || "لا يوجد"}\nقيمة الخصم: ${money(data.discount || 0)}\nالسعر بعد الخصم: ${money(finalPrice)}\nاسم العميل: ${clientName}\nرقم التواصل: ${clientPhone}\nملاحظات: ${clientNotes || "لا يوجد"}\nأرجو توضيح خطوات الدفع والتسليم اليدوي.`;
     $("success-wa-link").href = `https://wa.me/${SALES_NUMBER}?text=${encodeURIComponent(msg)}`;
     openModal("success-modal");
     const tracked = readStore("lf_recent_orders_v1", []); tracked.unshift({ orderId: String(data.orderId), productName: currentProduct.name, createdAt: new Date().toISOString() }); writeStore("lf_recent_orders_v1", tracked.slice(0, 30));
@@ -185,6 +187,16 @@ function initCommunityFeatures() {
   $("track-order-form")?.addEventListener("submit", async e => { e.preventDefault(); const id = $("track-order-id").value.trim(); const result = $("track-order-result"); const local = readStore("lf_recent_orders_v1", []).find(o => String(o.orderId).toLowerCase() === id.toLowerCase()); if (local) { result.innerHTML = `<div class="tracking-result"><b>الطلب ${escapeHtml(local.orderId)}</b><span class="status-pill">تم تسجيل الطلب</span><p>المنتج: ${escapeHtml(local.productName)}</p><p>تم إنشاء الطلب في ${new Date(local.createdAt).toLocaleString("ar-SA")}.</p><small>هذه معلومات محفوظة على هذا المتصفح فقط. لحالة الدفع والتسليم النهائية، تواصل مع فريق المبيعات.</small></div>`; return; } result.innerHTML = `<div class="tracking-result"><b>لم نجد الطلب في هذا المتصفح.</b><p>قد يكون الطلب مسجّلًا على جهاز آخر. لا يمكن تأكيد حالة الطلب من الواجهة وحدها.</p><a class="btn btn-outline" target="_blank" rel="noopener" href="https://wa.me/${SALES_NUMBER}?text=${encodeURIComponent("السلام عليكم، أريد الاستفسار عن حالة الطلب: "+id)}">استفسر عبر WhatsApp</a></div>`; });
 }
 
+async function loadPublicOffers() {
+  const box = $("offers-list"); if (!box) return;
+  try {
+    const r = await fetch("/api/coupons", { cache: "no-store" }); const d = await r.json();
+    const rows = Array.isArray(d.coupons) ? d.coupons : [];
+    box.innerHTML = rows.length ? rows.map((c,i) => `<article class="lf-offer-card offer-tone-${i%4}"><span class="offer-label"><i class="fa-solid fa-ticket"></i> عرض متاح</span><strong>${escapeHtml(c.code)}</strong><p>${c.type === "fixed" ? `خصم ${Number(c.value)} دولار` : `خصم ${Number(c.value)}٪`}</p><small>${c.expiresAt ? `ينتهي ${new Date(c.expiresAt).toLocaleDateString("ar-SA")}` : "لفترة محدودة حسب توفر العرض"}</small><button type="button" class="offer-copy" data-coupon-copy="${escapeHtml(c.code)}">نسخ الرمز</button></article>`).join("") : `<div class="offers-empty">لا توجد عروض نشطة حاليًا. تابعنا قريبًا!</div>`;
+    box.querySelectorAll("[data-coupon-copy]").forEach(b => b.addEventListener("click", async () => { const code=b.dataset.couponCopy; try { await navigator.clipboard.writeText(code); b.textContent="تم النسخ"; } catch { const input=$("order-coupon-code"); if(input)input.value=code; b.textContent="استخدمه عند الطلب"; } }));
+  } catch { box.innerHTML = `<div class="offers-empty">تعذر تحميل العروض الآن.</div>`; }
+}
+
 async function init() {
   // Render cached data immediately (or empty state), then refresh from the server without blocking the page.
   productsCache = readCachedProducts();
@@ -192,6 +204,7 @@ async function init() {
   renderProducts();
   refreshProductsInBackground();
   initCommunityFeatures();
+  loadPublicOffers();
   const requestedProduct = new URLSearchParams(location.search).get("order");
   if (requestedProduct) openOrder(requestedProduct);
   ["search-input", "category-filter", "sort-filter"].forEach(id => $(id).addEventListener(id === "search-input" ? "input" : "change", renderProducts));
