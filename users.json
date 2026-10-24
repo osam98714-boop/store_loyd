@@ -1,15 +1,1 @@
-[
-  {
-    "id": "lf_cb9be90b698dff872a083222",
-    "username": "osama",
-    "email": "onsns@gmail.com",
-    "phone": "966576040488",
-    "referralCode": "B0A428E6D0",
-    "points": 0,
-    "pointsEarned": 0,
-    "pointsSpent": 0,
-    "passwordSalt": "960649af87a5d4f15986a0f532a5bf0b",
-    "passwordHash": "7d61b6a9dc70dc0e73e99bbda303f88900eaa2c2b66cd09f8488bde08459b483e88f4c27bd45dcbc570211fd8b7ddbf6eb8480cf54227067d2573ecfa3b3f45d",
-    "createdAt": "2026-10-23T18:42:00.040Z"
-  }
-]
+[]

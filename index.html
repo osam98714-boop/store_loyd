@@ -38,6 +38,10 @@
         <a href="#faq">الأسئلة</a>
       </nav>
       <div class="nav-actions">
+        <div class="lf-notice-wrap">
+          <button class="lf-notice-button" id="lf-notice-button" type="button" aria-label="التنبيهات" aria-expanded="false"><i class="fa-solid fa-bell"></i><span id="lf-notice-count" class="lf-notice-count" hidden>0</span></button>
+          <div class="lf-notice-popover" id="lf-notice-popover" hidden><div class="lf-notice-head"><strong>التنبيهات</strong><button id="lf-notice-mark-read" type="button">تحديد الكل كمقروء</button></div><div id="lf-notice-list" class="lf-notice-list">جارٍ تحميل التنبيهات...</div></div>
+        </div>
         <a class="btn btn-soft" href="https://wa.me/962771111377" target="_blank" rel="noopener">
           <i class="fa-brands fa-whatsapp"></i> المبيعات
         </a>
@@ -169,7 +173,7 @@
         <div>
           <span class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> أدواتك في مكان واحد</span>
           <h2>مركز LF BOTS</h2>
-          <p>اختر الأداة التي تحتاجها وافتح صفحتها المستقلة بسهولة.</p>
+          <p>أدوات العميل الأساسية، بينما إدارة المحتوى مخصصة للمدير من لوحة التحكم.</p>
         </div>
       </div>
       <div class="feature-links-grid lf-tools-grid">
@@ -199,15 +203,13 @@
           <span class="lf-tool-copy"><b>سجل التحديثات</b><small>اكتشف الجديد في LF BOTS.</small><em>عرض التحديثات <i class="fa-solid fa-arrow-left"></i></em></span>
         </a>
         <a class="feature-link-card lf-tool-button" href="coupons.html"><span class="feature-link-icon tool-updates"><i class="fa-solid fa-ticket"></i></span><span class="lf-tool-copy"><b>العروض والكوبونات</b><small>اكتشف رموز الخصم النشطة.</small><em>عرض العروض <i class="fa-solid fa-arrow-left"></i></em></span></a>
-        <a class="feature-link-card lf-tool-button" href="developers.html"><span class="feature-link-icon tool-favorites"><i class="fa-solid fa-code"></i></span><span class="lf-tool-copy"><b>المطورون</b><small>تعرّف على المطورين والمساهمين.</small><em>استكشف <i class="fa-solid fa-arrow-left"></i></em></span></a>
-        <a class="feature-link-card lf-tool-button" href="gift-cards.html"><span class="feature-link-icon tool-orders"><i class="fa-solid fa-gift"></i></span><span class="lf-tool-copy"><b>بطاقات الهدايا</b><small>اطلب بطاقة هدية رقمية يدويًا.</small><em>عرض البطاقات <i class="fa-solid fa-arrow-left"></i></em></span></a>
-        <a class="feature-link-card lf-tool-button" href="memberships.html"><span class="feature-link-icon tool-achievements"><i class="fa-solid fa-crown"></i></span><span class="lf-tool-copy"><b>مستويات العضوية</b><small>تابع مستواك حسب نقاط الحساب.</small><em>عرض المستويات <i class="fa-solid fa-arrow-left"></i></em></span></a>
-        <a class="feature-link-card lf-tool-button" href="notifications.html"><span class="feature-link-icon tool-updates"><i class="fa-solid fa-bell"></i></span><span class="lf-tool-copy"><b>التنبيهات</b><small>اطلع على الإعلانات العامة.</small><em>عرض التنبيهات <i class="fa-solid fa-arrow-left"></i></em></span></a>
-        <a class="feature-link-card lf-tool-button" href="news.html"><span class="feature-link-icon tool-updates"><i class="fa-solid fa-newspaper"></i></span><span class="lf-tool-copy"><b>الأخبار والتحديثات</b><small>آخر أخبار وإصدارات المتجر.</small><em>اقرأ الأخبار <i class="fa-solid fa-arrow-left"></i></em></span></a>
-        <a class="feature-link-card lf-tool-button" href="analytics.html"><span class="feature-link-icon tool-assistant"><i class="fa-solid fa-chart-line"></i></span><span class="lf-tool-copy"><b>إحصائيات المتجر</b><small>لوحة إحصائيات مخصصة للمدير.</small><em>فتح الإحصائيات <i class="fa-solid fa-arrow-left"></i></em></span></a>
-        <a class="feature-link-card lf-tool-button" href="content-admin.html"><span class="feature-link-icon tool-orders"><i class="fa-solid fa-sliders"></i></span><span class="lf-tool-copy"><b>إدارة محتوى الصفحات</b><small>أضف الأخبار والتنبيهات والمطورين والهدايا.</small><em>إدارة المحتوى <i class="fa-solid fa-arrow-left"></i></em></span></a>
       </div>
     </section>
+
+    <section class="section wrap lf-managed-sections" id="lf-news-section" hidden><div class="section-heading"><div><span class="eyebrow">آخر المستجدات</span><h2>أخبار وتحديثات LF BOTS</h2></div></div><div id="lf-news-items" class="lf-managed-grid"></div></section>
+    <section class="section wrap lf-managed-sections" id="lf-gifts-section" hidden><div class="section-heading"><div><span class="eyebrow">إهداء رقمي</span><h2>بطاقات الهدايا</h2></div></div><div id="lf-gift-items" class="lf-managed-grid"></div></section>
+    <section class="section wrap lf-managed-sections" id="lf-memberships-section" hidden><div class="section-heading"><div><span class="eyebrow">مكافآت العملاء</span><h2>مستويات العضوية</h2><p>تُحدَّد المستويات ومزاياها من إدارة المتجر.</p></div></div><div id="lf-membership-items" class="lf-managed-grid"></div></section>
+    <section class="section wrap lf-managed-sections" id="lf-developers-section" hidden><div class="section-heading"><div><span class="eyebrow">فريق العمل</span><h2>المطورون</h2></div></div><div id="lf-developer-items" class="lf-managed-grid"></div></section>
 
     <section class="section wrap" id="how">
       <div class="section-heading centered">
@@ -262,6 +264,7 @@
       </div>
     </section>
   </main>
+  <script src="storefront-content.js"></script>
 
   <!-- الفوتر الرئيسي -->
   <footer class="footer">
