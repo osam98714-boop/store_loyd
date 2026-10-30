@@ -26,5 +26,21 @@
     "date": "2026-10-24T13:59:02.605Z",
     "status": "جديد",
     "paymentStatus": "غير مدفوع"
+  },
+  {
+    "id": "LF-29322963-HFSU",
+    "productId": "bot_1792771898676",
+    "productName": "Bot Batman",
+    "productPrice": "$4.00 USD",
+    "priceValue": 4,
+    "discountValue": 2,
+    "finalPrice": 2,
+    "couponCode": "LFBOTS",
+    "clientName": "معاذ إلياس محمد",
+    "clientPhone": "0553093954",
+    "clientNotes": "لا يوجد",
+    "date": "2026-10-30T03:02:02.963Z",
+    "status": "جديد",
+    "paymentStatus": "غير مدفوع"
   }
 ]
