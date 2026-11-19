@@ -3,7 +3,7 @@
     "code": "LFBOTS",
     "type": "percent",
     "value": 50,
-    "active": true,
+    "active": false,
     "expiresAt": "2026-10-30T20:59:59.000Z",
     "maxUses": 0,
     "uses": 2,
