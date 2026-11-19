@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "code": "WELCOME11",
+    "type": "percent",
+    "value": 1.17,
+    "active": true,
+    "expiresAt": null,
+    "maxUses": 1,
+    "uses": 0,
+    "createdAt": "2026-11-19T06:21:22.232Z"
+  }
+]
